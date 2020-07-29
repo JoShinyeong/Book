@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookDao">
+	<select id="list" resultType="bookVO">
+		SELECT * FROM BOOKS
+		ORDER BY seq
+	</select>
+	<select id="select" parameterType="int" resultType="bookVO">
+		SELECT * FROM
+		BOOKS WHERE seq =#{seq}
+	</select>
+	<insert id="insert" parameterType="bookVO">
+		INSERT INTO BOOKS
+		VALUES
+		(BOOKS_SEQ.nextval, #{bookisbn}, #{book}, #{writer},
+		#{publisher},#{price},#{image}, #{content})
+		<selectKey keyProperty="seq" resultType="Integer">
+			SELECT NVL(MAX(seq),0) FROM BOOKS
+		</selectKey>
+	</insert>
+
+</mapper>
+
+
+
